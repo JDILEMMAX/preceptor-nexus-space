@@ -1,0 +1,49 @@
+# Environments
+preceptor-nexus-space/
+.venv/
+env/
+venv/
+
+# SQLite Database Files
+*.db
+*.db-wal
+*.db-shm
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Python Cache & Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node & Frontend Dependencies
+node_modules/
+.next/
+dist/
+build/
+.npm/
+
+# Testing, Coverage & Reports
+.pytest_cache/
+test-results/
+playwright-report/
+.coverage
+htmlcov/
+
+# Local Environment Variables & Secrets
+.env
+.env.local
+.env.production
+*.pem
+*.key
+
+# Operating System & Editor Artifacts
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+misc/
