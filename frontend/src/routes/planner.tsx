@@ -13,7 +13,7 @@ export const Route = createFileRoute("/planner")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Study Planner — Preceptor Nexus Space" },
+      { title: "Study Planner - Preceptor Nexus Space" },
       { name: "description", content: "A day-by-day AZ-900 study calendar weighted toward your weak domains." },
       { property: "og:title", content: "AZ-900 Personal Study Planner" },
       { property: "og:description", content: "Set your exam date and hours; get a plan that targets weak areas." },

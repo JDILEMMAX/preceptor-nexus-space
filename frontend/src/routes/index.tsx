@@ -11,9 +11,9 @@ export const Route = createFileRoute("/")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Dashboard — Preceptor Nexus Space" },
+      { title: "Dashboard - Preceptor Nexus Space" },
       { name: "description", content: "Your AZ-900 readiness score, domain radar and weak areas at a glance." },
-      { property: "og:title", content: "Preceptor Nexus Space — AZ-900 Readiness" },
+      { property: "og:title", content: "Preceptor Nexus Space - AZ-900 Readiness" },
       { property: "og:description", content: "Track AZ-900 readiness across Cloud Concepts, Architecture and Governance." },
     ],
   }),
@@ -59,7 +59,7 @@ function Dashboard() {
 
   return (
     <>
-      <PageHeader eyebrow="Readiness Tracker" title="Your Adaptive Mastery Loop" desc="Practice feeds readiness, readiness shapes your plan, mistakes become flashcards, and the Buddy explains it all with local analogies." />
+      <PageHeader eyebrow="Readiness Tracker" title="Your Adaptive Mastery Loop" desc="Practice feeds readiness, readiness shapes your plan, mistakes become flashcards and the Buddy explains it all with local analogies." />
       <div className="grid gap-5 lg:grid-cols-3">
         <GlassCard>
           <h2 className="text-lg font-semibold">Readiness score</h2>
@@ -91,7 +91,7 @@ function Dashboard() {
                 <li key={d.id}>
                   <div className="flex items-baseline justify-between text-sm">
                     <span className="font-medium">{d.name}</span>
-                    <span className="text-muted-foreground">{s.total ? `${pct}%` : "—"} · {d.range}</span>
+                    <span className="text-muted-foreground">{s.total ? `${pct}%` : "-"} · {d.range}</span>
                   </div>
                   <div role="progressbar" aria-label={`${d.name} accuracy`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} className="mt-1.5 h-2 overflow-hidden rounded-full bg-muted">
                     <div className="bg-gradient-brand h-full rounded-full transition-all duration-700" style={{ width: `${pct}%` }} />

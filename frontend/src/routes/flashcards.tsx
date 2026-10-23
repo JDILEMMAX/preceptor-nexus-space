@@ -16,7 +16,7 @@ export const Route = createFileRoute("/flashcards")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Flashcard Coach — Preceptor Nexus Space" },
+      { title: "Flashcard Coach - Preceptor Nexus Space" },
       { name: "description", content: "Leitner spaced-repetition AZ-900 flashcards built from your mistakes." },
       { property: "og:title", content: "AZ-900 Spaced-Repetition Flashcards" },
       { property: "og:description", content: "Five Leitner boxes that turn missed questions into lasting memory." },
@@ -107,7 +107,7 @@ function Flashcards() {
       ) : (
         <GlassCard className="mx-auto max-w-xl text-center">
           <p className="font-display text-xl font-semibold">All caught up</p>
-          <p className="mt-2 text-sm text-muted-foreground">No cards due right now. Tap a box above to review its cards early, or take a practice set.</p>
+          <p className="mt-2 text-sm text-muted-foreground">No cards due right now. Tap a box above to review its cards early or take a practice set.</p>
         </GlassCard>
       )}
     </>

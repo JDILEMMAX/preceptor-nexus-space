@@ -10,9 +10,9 @@ export interface Domain {
 }
 
 export const DOMAINS: Domain[] = [
-  { id: "cloud", name: "Cloud Concepts", short: "Cloud", range: "25–30%", weight: 0.275 },
-  { id: "architecture", name: "Azure Architecture & Services", short: "Architecture", range: "35–40%", weight: 0.375 },
-  { id: "management", name: "Azure Management & Governance", short: "Governance", range: "30–35%", weight: 0.325 },
+  { id: "cloud", name: "Cloud Concepts", short: "Cloud", range: "25-30%", weight: 0.275 },
+  { id: "architecture", name: "Azure Architecture & Services", short: "Architecture", range: "35-40%", weight: 0.375 },
+  { id: "management", name: "Azure Management & Governance", short: "Governance", range: "30-35%", weight: 0.325 },
 ];
 
 export const domainById = (id: DomainId) => DOMAINS.find((d) => d.id === id)!;

@@ -38,6 +38,42 @@ _SYSTEM_PROMPT = (
 _USER_TEMPLATE = "Explain this Azure concept with an African analogy: {query}"
 
 # ---------------------------------------------------------------------------
+# Greeting / conversational guard
+# ---------------------------------------------------------------------------
+
+_GREETING_RE = re.compile(
+    r"^\s*("
+    r"(hi+|hello+|hey+|howdy|hiya|greetings)\s*(there|buddy|friend|everyone|all)?"
+    r"|sup|what'?s?\s*up"
+    r"|how are (you|u)"
+    r"|are you (ok|okay|alright)"
+    r"|good\s+(morning|afternoon|evening|day|night)"
+    r"|how'?s?\s+it\s+going"
+    r"|what can you do"
+    r"|who are you|what are you"
+    r"|help\s*me?"
+    r"|i need help"
+    r"|start|begin|let'?s\s+go"
+    r")\s*[!?.]*\s*$",
+    re.IGNORECASE,
+)
+
+_GREETING_RESPONSE = BuddyResponse(
+    topic="Welcome",
+    azure_service="Azure Cloud Services",
+    metaphor_title="Karibu - Welcome to Preceptor Nexus",
+    analogy_text=(
+        "Habari! I am Preceptor Nexus, your AI Study Buddy for the AZ-900 Azure Fundamentals exam. "
+        "I explain cloud concepts through vivid African regional analogies. "
+        "Ask me about Azure storage, compute, networking, security, identity or governance - "
+        "or tap one of the suggestion pills below to get started!"
+    ),
+    source="ai_generated",
+    raw_ai_text=None,
+)
+
+
+# ---------------------------------------------------------------------------
 # Public entry point
 # ---------------------------------------------------------------------------
 
@@ -45,7 +81,8 @@ _USER_TEMPLATE = "Explain this Azure concept with an African analogy: {query}"
 async def explain_topic(query: str) -> BuddyResponse:
     """Return an analogy for the given query.
 
-    Attempts Gemini AI first. Falls back to SQLite seed data on any error.
+    Short-circuits with a warm greeting for conversational openers.
+    Attempts Gemini AI for Azure topic queries. Falls back to SQLite seed data on any error.
 
     Args:
         query: Natural language topic from the learner.
@@ -53,6 +90,9 @@ async def explain_topic(query: str) -> BuddyResponse:
     Returns:
         BuddyResponse with source flag set to 'ai_generated' or 'seed_fallback'.
     """
+    if _GREETING_RE.match(query.strip()):
+        return _GREETING_RESPONSE
+
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
 
     if api_key:

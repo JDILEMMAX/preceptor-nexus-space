@@ -1,14 +1,17 @@
-/** Register only on the exported/published app, never in editor previews. */
+/** Register the service worker for production deployments only. */
 export async function registerOfflineApp() {
   if (!("serviceWorker" in navigator)) return;
-  const { hostname, search } = window.location;
-  const preview = hostname.startsWith("id-preview--") || hostname.startsWith("preview--") ||
-    ["lovableproject.com", "lovableproject-dev.com", "beta.lovable.dev"].some((host) => hostname === host || hostname.endsWith(`.${host}`));
-  if (!import.meta.env.PROD || window.self !== window.top || preview || new URLSearchParams(search).get("sw") === "off") {
+  if (!import.meta.env.PROD || window.self !== window.top) {
     const registrations = await navigator.serviceWorker.getRegistrations();
-    await Promise.all(registrations.filter((registration) =>
-      [registration.active, registration.waiting, registration.installing].some((worker) => worker && new URL(worker.scriptURL).pathname === "/sw.js")
-    ).map((registration) => registration.unregister()));
+    await Promise.all(
+      registrations
+        .filter((r) =>
+          [r.active, r.waiting, r.installing].some(
+            (w) => w && new URL(w.scriptURL).pathname === "/sw.js",
+          ),
+        )
+        .map((r) => r.unregister()),
+    );
     return;
   }
   const registration = await navigator.serviceWorker.register("/sw.js");

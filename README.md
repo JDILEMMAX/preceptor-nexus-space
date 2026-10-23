@@ -173,7 +173,6 @@ preceptor-nexus-space/
 |   |-- test_scoring.py        Unit tests for scoring engine
 |   +-- test_api.py            Integration tests via FastAPI TestClient
 |
-|-- misc/                      Hackathon context materials (git-ignored)
 |-- requirements.txt           Python backend dependencies
 |-- README.md                  This file
 +-- LICENSE                    MIT License
