@@ -1,0 +1,398 @@
+{
+  "domains": [
+    {
+      "code": "cloud-concepts",
+      "title": "Cloud Concepts",
+      "weight_min": 0.25,
+      "weight_max": 0.30
+    },
+    {
+      "code": "azure-architecture-services",
+      "title": "Azure Architecture & Services",
+      "weight_min": 0.35,
+      "weight_max": 0.40
+    },
+    {
+      "code": "azure-management-governance",
+      "title": "Azure Management & Governance",
+      "weight_min": 0.30,
+      "weight_max": 0.35
+    }
+  ],
+  "questions": [
+    {
+      "domain_code": "cloud-concepts",
+      "question_text": "When migrating an on-premises workload to an Azure Infrastructure as a Service (IaaS) virtual machine, which operational responsibility remains with the customer?",
+      "option_a": "Physical datacentre facility security",
+      "option_b": "Operating system configuration and security patching",
+      "option_c": "Physical server hardware maintenance",
+      "option_d": "Datacentre environmental climate controls",
+      "correct_option": "B",
+      "explanation": "In the IaaS model Microsoft maintains physical facilities, server hardware and core virtualization hosts. The customer retains full responsibility for operating system installation, configuration, security patching, middleware and applications."
+    },
+    {
+      "domain_code": "cloud-concepts",
+      "question_text": "An organisation wants to eliminate upfront capital expenditures for hardware procurement and transition to predictable recurring monthly operating costs based on actual consumption. Which financial model aligns with this strategy?",
+      "option_a": "Capital Expenditure (CapEx)",
+      "option_b": "Operational Expenditure (OpEx)",
+      "option_c": "Fixed Asset Depreciation",
+      "option_d": "Upfront Reserve Amortization",
+      "correct_option": "B",
+      "explanation": "Operational Expenditure (OpEx) represents ongoing costs for products or services with zero upfront hardware procurement costs. Cloud computing operates primarily on an OpEx model where organisations pay only for computing resources consumed."
+    },
+    {
+      "domain_code": "cloud-concepts",
+      "question_text": "Which cloud computing advantage ensures services remain operational and accessible with minimal downtime even during localized hardware or component failures?",
+      "option_a": "Elasticity",
+      "option_b": "High Availability",
+      "option_c": "Agility",
+      "option_d": "Latency sensitivity",
+      "correct_option": "B",
+      "explanation": "High availability guarantees systems remain accessible and operational across defined service level agreements by deploying redundant components across fault domains. Elasticity refers to dynamic scaling while agility measures rapid resource deployment."
+    },
+    {
+      "domain_code": "cloud-concepts",
+      "question_text": "An administrator reconfigures an Azure virtual machine from an instance size with 4 vCPUs and 16 GB RAM to an instance with 16 vCPUs and 64 GB RAM to handle intense database computation. What type of scaling does this represent?",
+      "option_a": "Horizontal scaling (scale-out)",
+      "option_b": "Vertical scaling (scale-up)",
+      "option_c": "Elastic load distribution",
+      "option_d": "Geo-redundant replication",
+      "correct_option": "B",
+      "explanation": "Vertical scaling (scaling up) involves increasing the compute capacity, memory or storage of a single existing resource. Horizontal scaling (scaling out) involves provisioning additional resource instances behind a load balancer."
+    },
+    {
+      "domain_code": "cloud-concepts",
+      "question_text": "An e-commerce platform automatically increases virtual machine scale set capacity during flash sale traffic spikes and immediately deprovisions idle instances when traffic normalizes. Which cloud characteristic is demonstrated?",
+      "option_a": "Fault tolerance",
+      "option_b": "Elasticity",
+      "option_c": "Predictability",
+      "option_d": "Disaster recovery",
+      "correct_option": "B",
+      "explanation": "Elasticity is the ability to dynamically allocate and de-allocate computing resources in real time according to fluctuating workload demands, preventing both resource starvation and wasted capacity."
+    },
+    {
+      "domain_code": "cloud-concepts",
+      "question_text": "A healthcare provider retains sensitive patient diagnostic records within an isolated on-premises datacentre for strict regulatory compliance while hosting public-facing appointment booking portals in Microsoft Azure. Which deployment model is this?",
+      "option_a": "Public cloud",
+      "option_b": "Private cloud",
+      "option_c": "Hybrid cloud",
+      "option_d": "Community cloud",
+      "correct_option": "C",
+      "explanation": "A hybrid cloud environment interconnects private on-premises infrastructure with public cloud services, allowing data and applications to be shared across boundaries based on compliance or operational needs."
+    },
+    {
+      "domain_code": "cloud-concepts",
+      "question_text": "A development team seeks an environment to build and deploy web applications without managing underlying operating system updates, server provisioning or runtime installations. Which cloud service model best satisfies these requirements?",
+      "option_a": "Infrastructure as a Service (IaaS)",
+      "option_b": "Platform as a Service (PaaS)",
+      "option_c": "Software as a Service (SaaS)",
+      "option_d": "On-premises Bare Metal",
+      "correct_option": "B",
+      "explanation": "Platform as a Service (PaaS) provides a managed framework and runtime environment where developers focus entirely on application logic and data, while the cloud provider manages servers, operating systems, networking and runtime frameworks."
+    },
+    {
+      "domain_code": "cloud-concepts",
+      "question_text": "Which cloud delivery model provides end users with a fully managed web-accessible business software application such as Microsoft 365 where the customer is responsible only for data and user access management?",
+      "option_a": "Infrastructure as a Service (IaaS)",
+      "option_b": "Platform as a Service (PaaS)",
+      "option_c": "Software as a Service (SaaS)",
+      "option_d": "Function as a Service (FaaS)",
+      "correct_option": "C",
+      "explanation": "Software as a Service (SaaS) delivers complete end-user software over the web. The provider handles infrastructure, operating systems, application code and maintenance, leaving only user identity access and data governance to the customer."
+    },
+    {
+      "domain_code": "cloud-concepts",
+      "question_text": "What primary financial attribute distinguishes serverless computing services such as Azure Functions from traditional dedicated hosting?",
+      "option_a": "Fixed annual licensing agreements",
+      "option_b": "Consumption-based billing based on exact execution duration and memory consumption",
+      "option_c": "Mandatory multi-year reserved capacity commitments",
+      "option_d": "Billing tied strictly to provisioned idle CPU cores",
+      "correct_option": "B",
+      "explanation": "Serverless architectures utilize a consumption-based pricing model where users incur costs strictly when code executes, factoring in memory allocation and execution duration in fractions of a second with zero cost for idle time."
+    },
+    {
+      "domain_code": "cloud-concepts",
+      "question_text": "Which cloud architecture principle focuses on maintaining continuous business operations by restoring workloads in an alternate geographical location following a catastrophic regional disruption?",
+      "option_a": "High availability",
+      "option_b": "Disaster recovery",
+      "option_c": "Vertical scaling",
+      "option_d": "Cost optimization",
+      "correct_option": "B",
+      "explanation": "Disaster recovery refers to policies, tools and procedures designed to enable the recovery or continuation of vital technology infrastructure and systems following natural or human-induced catastrophic regional events."
+    },
+    {
+      "domain_code": "azure-architecture-services",
+      "question_text": "What constitutes an official Azure Region?",
+      "option_a": "A single physical datacentre building containing multiple server racks",
+      "option_b": "A geographical area containing one or more datacentres networked together through a dedicated low-latency perimeter network",
+      "option_c": "A collection of multiple continents sharing single identity boundaries",
+      "option_d": "A boundary that defines legal export restrictions for Microsoft software licenses",
+      "correct_option": "B",
+      "explanation": "An Azure region is a defined geographical area containing at least one datacentre or multiple datacentres interconnected via a latency-defined network perimeter. Regions provide customers with localized data residency and performance proximity."
+    },
+    {
+      "domain_code": "azure-architecture-services",
+      "question_text": "Which architectural component inside an Azure region consists of one or more physical datacentres equipped with independent power, cooling and networking infrastructures?",
+      "option_a": "Resource group",
+      "option_b": "Availability Zone",
+      "option_c": "Management group",
+      "option_d": "Azure Edge Zone",
+      "correct_option": "B",
+      "explanation": "Availability Zones are physically separated datacentre locations within an Azure region. Each zone possesses independent power, cooling and networking facilities, providing protection against localized datacentre-level outages."
+    },
+    {
+      "domain_code": "azure-architecture-services",
+      "question_text": "Why does Microsoft designate Azure Region Pairs located at least 300 miles apart within the same geography?",
+      "option_a": "To enable shared storage pricing across continents",
+      "option_b": "To coordinate disaster recovery and ensure planned platform updates occur sequentially across one region at a time",
+      "option_c": "To allow virtual machines to bridge private IP addresses without virtual networks",
+      "option_d": "To enforce identical taxation structures across regional subsidiaries",
+      "correct_option": "B",
+      "explanation": "Region pairs ensure business continuity and disaster recovery. During planned maintenance Microsoft rolls out updates to one paired region at a time. During broad multi-region outages recovery prioritization is guaranteed for at least one region in every pair."
+    },
+    {
+      "domain_code": "azure-architecture-services",
+      "question_text": "An organisation requires dedicated isolated cloud infrastructure compliant with United States federal security standards including FedRAMP High and DoD Impact Level 5. Which Azure offering is designed specifically for this requirement?",
+      "option_a": "Azure Global Public Cloud",
+      "option_b": "Azure Government",
+      "option_c": "Azure Germany Cloud",
+      "option_d": "Azure Stack Hub",
+      "correct_option": "B",
+      "explanation": "Azure Government is a physically and logically isolated cloud instance tailored strictly for United States federal, state, local and tribal government agencies and their cleared partners to meet rigorous security compliance standards."
+    },
+    {
+      "domain_code": "azure-architecture-services",
+      "question_text": "A mobile media streaming application requires highly durable, massively scalable object storage for petabytes of unstructured video, audio and image uploads. Which service should the team choose?",
+      "option_a": "Azure Table Storage",
+      "option_b": "Azure Blob Storage",
+      "option_c": "Azure Queue Storage",
+      "option_d": "Azure Files",
+      "correct_option": "B",
+      "explanation": "Azure Blob Storage is an object storage solution optimized for storing massive amounts of unstructured data such as video, audio, text documents, backups and log files with tiering options across Hot, Cool, Cold and Archive."
+    },
+    {
+      "domain_code": "azure-architecture-services",
+      "question_text": "A regulatory compliance standard requires medical audit files to be preserved for ten years. The files are accessed less than once a year. Retrieval delays of several hours are acceptable. Which access tier provides the lowest storage expenditure?",
+      "option_a": "Hot tier",
+      "option_b": "Cool tier",
+      "option_c": "Cold tier",
+      "option_d": "Archive tier",
+      "correct_option": "D",
+      "explanation": "The Archive access tier offers the lowest per-gigabyte storage cost for rarely accessed data. It requires an asynchronous rehydration process taking several hours before stored blobs can be read or modified."
+    },
+    {
+      "domain_code": "azure-architecture-services",
+      "question_text": "An enterprise hosts front-end web services in Virtual Network A and back-end microservices in Virtual Network B. Both VNets reside in the same Azure subscription. What configuration connects these VNets securely across Microsoft private network backbone without traversal over the public internet?",
+      "option_a": "Azure ExpressRoute",
+      "option_b": "Virtual Network (VNet) Peering",
+      "option_c": "Point-to-Site VPN",
+      "option_d": "Public Internet Gateways",
+      "correct_option": "B",
+      "explanation": "Virtual Network (VNet) peering enables seamless interconnection of two or more Azure virtual networks. Traffic between peered virtual networks routes entirely across Microsoft private optical network backbone without traversing the public internet."
+    },
+    {
+      "domain_code": "azure-architecture-services",
+      "question_text": "An organisation requires a dedicated, private, enterprise-grade connection between its corporate on-premises datacentre and Azure infrastructure that delivers high throughput and never traverses the public internet. Which connectivity option is required?",
+      "option_a": "Azure Site-to-Site VPN",
+      "option_b": "Azure ExpressRoute",
+      "option_c": "Azure Bastion",
+      "option_d": "Network Security Group rule",
+      "correct_option": "B",
+      "explanation": "Azure ExpressRoute creates private, dedicated connections between on-premises datacentres and Azure via a certified connectivity provider. Unlike VPN connections, ExpressRoute connections do not traverse the public internet, offering higher security and reliable speeds."
+    },
+    {
+      "domain_code": "azure-architecture-services",
+      "question_text": "A developer needs to deploy containerized microservices rapidly on demand without provisioning virtual machines, configuring cluster nodes or managing container orchestrators. Which Azure compute service is the simplest option?",
+      "option_a": "Azure Virtual Machines",
+      "option_b": "Azure Container Instances (ACI)",
+      "option_c": "Azure Virtual Desktop",
+      "option_d": "Azure Kubernetes Service (AKS)",
+      "correct_option": "B",
+      "explanation": "Azure Container Instances (ACI) provides the fastest and simplest path to run containers in Azure without provisioning virtual machines or adopting complex cluster management platforms."
+    },
+    {
+      "domain_code": "azure-architecture-services",
+      "question_text": "An enterprise wants to ensure that administrators accessing production Azure subscription resources must satisfy both password verification and an authenticator mobile push notification. Which identity protection capability enforces this multi-step validation?",
+      "option_a": "Single Sign-On (SSO)",
+      "option_b": "Multifactor Authentication (MFA)",
+      "option_c": "Service Principal Assignment",
+      "option_d": "Resource Group Locking",
+      "correct_option": "B",
+      "explanation": "Multifactor Authentication (MFA) protects data and application access by requiring two or more distinct verification factors such as passwords, security keys or authenticator push notifications during authentication."
+    },
+    {
+      "domain_code": "azure-management-governance",
+      "question_text": "What is the correct structural hierarchy of Azure management scopes arranged in order from the broadest management container down to the most specific leaf level?",
+      "option_a": "Management groups -> Subscriptions -> Resource groups -> Resources",
+      "option_b": "Subscriptions -> Management groups -> Resource groups -> Resources",
+      "option_c": "Resource groups -> Management groups -> Subscriptions -> Resources",
+      "option_d": "Management groups -> Resource groups -> Subscriptions -> Resources",
+      "correct_option": "A",
+      "explanation": "Azure organizes resources into four hierarchical governance scopes: Management groups provide governance across multiple subscriptions; Subscriptions group resource billing; Resource groups serve as logical organizational containers; Resources represent individual service instances."
+    },
+    {
+      "domain_code": "azure-management-governance",
+      "question_text": "A security compliance officer must mandate that virtual machines can only be deployed in the South Africa North and South Africa West regions, blocking any deployment attempts targeted at European or American regions. Which governance mechanism enforces this rule?",
+      "option_a": "Azure Resource Locks",
+      "option_b": "Azure Policy",
+      "option_c": "Azure Service Health",
+      "option_d": "Cost Management Budgets",
+      "correct_option": "B",
+      "explanation": "Azure Policy evaluates resource configurations against organizational compliance rules and can deny creation of resources that violate established policies, such as restricting allowed deployment locations."
+    },
+    {
+      "domain_code": "azure-management-governance",
+      "question_text": "A security auditor needs to view resource configurations and billing dashboards across an entire Azure subscription to evaluate compliance without being able to modify settings, start servers or delete data. Which built-in RBAC role follows the principle of least privilege?",
+      "option_a": "Owner",
+      "option_b": "Contributor",
+      "option_c": "Reader",
+      "option_d": "User Access Administrator",
+      "correct_option": "C",
+      "explanation": "The Reader role grants read-only access to view all resources within a scope without granting rights to create, modify or delete resources, honoring the principle of least privilege."
+    },
+    {
+      "domain_code": "azure-management-governance",
+      "question_text": "A critical production SQL database must be shielded from accidental deletion during routine maintenance, while still allowing authorized engineers to modify database performance tiers and firewall parameters. What lock type should be applied?",
+      "option_a": "ReadOnly lock",
+      "option_b": "CanNotDelete lock",
+      "option_c": "Conditional lock",
+      "option_d": "Administrative freeze lock",
+      "correct_option": "B",
+      "explanation": "A CanNotDelete (Delete) lock permits authorized users to read and modify resource configurations, but prevents any user or administrator from deleting the resource until the lock is explicitly removed."
+    },
+    {
+      "domain_code": "azure-management-governance",
+      "question_text": "Before migrating an on-premises enterprise workload to Microsoft Azure, an IT director wants to estimate the expected monthly operational expenditures for specific configurations of virtual machines, storage accounts and databases. Which tool should they consult?",
+      "option_a": "Total Cost of Ownership (TCO) Calculator",
+      "option_b": "Azure Pricing Calculator",
+      "option_c": "Azure Cost Management",
+      "option_d": "Azure Advisor",
+      "correct_option": "B",
+      "explanation": "The Azure Pricing Calculator estimates recurring monthly operational expenditures for configured Azure resources prior to deployment. The TCO Calculator historically compared on-premises capital investment against cloud operational migration savings."
+    },
+    {
+      "domain_code": "azure-management-governance",
+      "question_text": "Which native Azure guidance engine analyzes active cloud resource telemetry to provide proactive, actionable recommendations across cost reduction, security posture, operational reliability, performance and operational excellence?",
+      "option_a": "Azure Policy",
+      "option_b": "Azure Advisor",
+      "option_c": "Azure Monitor",
+      "option_d": "Microsoft Defender for Cloud",
+      "correct_option": "B",
+      "explanation": "Azure Advisor analyzes resource configurations and usage telemetry to generate actionable recommendations categorized across five pillars: Cost, Security, Reliability, Performance and Operational Excellence."
+    },
+    {
+      "domain_code": "azure-management-governance",
+      "question_text": "An engineering team needs a centralized monitoring platform to collect application metrics, diagnose container performance bottlenecks, visualize dashboard charts and configure automated alert rules when CPU utilization exceeds 85%. Which service serves as this telemetry backbone?",
+      "option_a": "Azure Service Health",
+      "option_b": "Azure Monitor",
+      "option_c": "Microsoft Defender for Cloud",
+      "option_d": "Azure Arc",
+      "correct_option": "B",
+      "explanation": "Azure Monitor is the centralized platform for gathering, analyzing and acting on telemetry from cloud and on-premises environments. It stores numeric metrics for fast charting and log data in Log Analytics workspaces for complex querying."
+    },
+    {
+      "domain_code": "azure-management-governance",
+      "question_text": "A cloud operations engineer notices unexpected connectivity failures affecting resources in East US. Which tool provides personalized guidance and status notifications regarding official Azure outages, planned maintenance schedules and health advisories affecting their specific subscriptions?",
+      "option_a": "Azure Status Page",
+      "option_b": "Azure Service Health",
+      "option_c": "Azure Network Watcher",
+      "option_d": "Azure Application Insights",
+      "correct_option": "B",
+      "explanation": "Azure Service Health delivers personalized notifications and dashboard views detailing service outages, planned infrastructure maintenance and health advisories that specifically impact the customer active subscriptions and deployed regions."
+    },
+    {
+      "domain_code": "azure-management-governance",
+      "question_text": "A DevOps team wants to standardize cloud infrastructure provisioning using declarative template files written in human-readable code that can be stored in Git repositories, version-controlled and executed reproducibly through CI/CD pipelines. Which native Azure languages support this workflow?",
+      "option_a": "Azure CLI and PowerShell scripts",
+      "option_b": "ARM Templates and Bicep",
+      "option_c": "Azure REST API calls",
+      "option_d": "Azure Automation Runbooks",
+      "correct_option": "B",
+      "explanation": "Azure Resource Manager (ARM) templates using JSON syntax and Bicep using a domain-specific declarative syntax enable Infrastructure as Code (IaC). Declarative templates describe desired end-state infrastructure and execute repeatably."
+    },
+    {
+      "domain_code": "azure-management-governance",
+      "question_text": "An architecture combines a Web App with an SLA of 99.95% and an Azure SQL Database with an SLA of 99.99%. If both services must be operational for the application to function, what mathematical principle governs the composite SLA?",
+      "option_a": "The composite SLA equals the higher SLA of 99.99%",
+      "option_b": "The composite SLA is the product of both individual SLAs (99.95% multiplied by 99.99%), resulting in an SLA lower than 99.95%",
+      "option_c": "The composite SLA equals the arithmetic average of both percentages",
+      "option_d": "The composite SLA automatically becomes 100% due to Azure fault tolerance",
+      "correct_option": "B",
+      "explanation": "When an application depends on multiple services in series, the composite SLA is calculated by multiplying the individual SLAs together. Because each multiplied probability is below 100%, the composite SLA is always lower than the lowest individual service SLA."
+    }
+  ],
+  "analogies": [
+    {
+      "topic": "Messaging and Asynchronous Decoupling",
+      "azure_service": "Azure Service Bus and Queue Storage",
+      "metaphor_title": "M-Pesa Peak Transaction Queues",
+      "analogy_text": "During Friday evening rush hour, hundreds of thousands of shoppers and commuters across Kenya execute M-Pesa mobile money transactions simultaneously. Rather than overwhelming bank backends with concurrent requests, transactions enter high-durability message buffers that ensure every payment is processed reliably in sequence without dropped transfers."
+    },
+    {
+      "topic": "Event-Driven Architecture",
+      "azure_service": "Azure Event Grid",
+      "metaphor_title": "Mobile Money Merchant Webhook Notifications",
+      "analogy_text": "When a customer completes a mobile money till purchase at a supermarket checkout, the core payment engine emits an instant lightweight notification. Event Grid acts as the central router, broadcasting the confirmation event to inventory databases, accounting ledgers and digital receipt SMS gateways simultaneously."
+    },
+    {
+      "topic": "High Availability and Fault Domains",
+      "azure_service": "Azure Availability Zones and Regions",
+      "metaphor_title": "Kenyan National Power Grid Substations",
+      "analogy_text": "Consider an entire county electricity network as an Azure region. Inside that region, Availability Zones function like independent electrical substations equipped with isolated transformers, dedicated feeder cables and backup generators. If lightning strikes one substation, adjoining substations continue supplying uninterrupted electricity across the county."
+    },
+    {
+      "topic": "Disaster Recovery and High Resilience",
+      "azure_service": "Azure Region Pairs",
+      "metaphor_title": "National Grain Reserve Depot Duplication",
+      "analogy_text": "A national cereals board maintains strategic grain reserves in separate regional depots situated hundreds of kilometres apart, such as Nakuru and Eldoret. If localized flooding compromises one depot, the paired granary safeguards the food supply. Scheduled maintenance is never conducted on both depots simultaneously."
+    },
+    {
+      "topic": "Unstructured Object Storage",
+      "azure_service": "Azure Blob Storage",
+      "metaphor_title": "Wholesale Agricultural Granary Silos",
+      "analogy_text": "Azure Blob Storage operates like a regional wholesale agricultural granary. Sacks of maize, sorghum, dried beans and farm seeds arrive in massive bulk without rigid formatting. Each bag receives a unique identifier tag so farm cooperatives can retrieve millions of sacks efficiently without relational database overhead."
+    },
+    {
+      "topic": "Relational Structured Data",
+      "azure_service": "Azure SQL Database",
+      "metaphor_title": "SACCO Banking General Ledger",
+      "analogy_text": "In contrast to bulk grain storage, a cooperative credit union (SACCO) ledger requires strict column definitions, balance validations, foreign relationships and transactional integrity. Azure SQL Database enforces tabular structure, ACID compliance and multi-table joins to ensure financial records balance down to the exact cent."
+    },
+    {
+      "topic": "Tiered Storage Economics",
+      "azure_service": "Blob Access Tiers (Hot, Cool, Cold, Archive)",
+      "metaphor_title": "Market Stall Counter to Rural Storage Godown",
+      "analogy_text": "Hot tier corresponds to merchandise displayed on the front counter of a Nairobi market stall for immediate sale at higher rental rates. Cool and Cold tiers represent backroom shelving. Archive tier is an ancestral rural godown upcountry where storage fees are microscopic, but retrieving inventory requires dispatching a transport lorry hours in advance."
+    },
+    {
+      "topic": "Private Cloud Networking",
+      "azure_service": "Virtual Network (VNet) Peering",
+      "metaphor_title": "Commuter Matatu SACCO Private Interchanges",
+      "analogy_text": "Imagine two distinct commuter matatu associations, one operating throughout Nairobi Westlands and the other serving Embakasi. VNet peering creates a dedicated private transfer terminus between their routes, permitting commuters to switch routes directly across private lanes without ever walking onto the open, congested national highway."
+    },
+    {
+      "topic": "Dedicated Hybrid Connectivity",
+      "azure_service": "Azure ExpressRoute vs Site-to-Site VPN",
+      "metaphor_title": "Nairobi Expressway vs Public Arterial Roads",
+      "analogy_text": "A Site-to-Site VPN resembles dispatching an armoured cash van across public arterial city streets: the payload is securely locked, but the vehicle still navigates traffic congestion and delays on public roads. Azure ExpressRoute represents an elevated private expressway where your fleet travels on dedicated private tarmac directly into the cloud depot."
+    },
+    {
+      "topic": "Elasticity and Dynamic Scaling",
+      "azure_service": "Virtual Machine Scale Sets and Autoscaling",
+      "metaphor_title": "Boda Boda Motorcycle Stage Fleet Dispatch",
+      "analogy_text": "A commuter motorcycle taxi (boda boda) stage outside a busy train terminal dynamically scales out its active fleet as hundreds of disembarking passengers arrive at dusk. As the platform clears, idle riders depart for other zones. Elasticity matches compute resources to fluctuating real-time human demand automatically."
+    },
+    {
+      "topic": "Governance vs Identity Authorization",
+      "azure_service": "Azure Policy vs Role-Based Access Control (RBAC)",
+      "metaphor_title": "County Physical Planning Laws vs Building Security Guards",
+      "analogy_text": "Role-Based Access Control (RBAC) acts as the security desk guard inspecting credentials to verify who is permitted to enter the compound and which doors they can open. Azure Policy represents county physical planning bylaws specifying what structures can be constructed: no building may exceed four storeys or lack fire exits, regardless of who owns the property."
+    },
+    {
+      "topic": "Hierarchical Governance Scopes",
+      "azure_service": "Management Groups, Subscriptions and Resource Groups",
+      "metaphor_title": "Devolved Governance Structure (National, County, Ward)",
+      "analogy_text": "The national government establishes overarching statutory guidelines (Management Groups), county administrations allocate regional developmental budgets (Subscriptions), sub-counties and wards assemble related community initiatives (Resource Groups); individual boreholes, clinics and transformers constitute operational assets (Resources)."
+    }
+  ]
+}
