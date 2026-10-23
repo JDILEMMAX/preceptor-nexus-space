@@ -177,3 +177,82 @@ Every connection applies:
 | Backend | Render | `uvicorn backend.main:app --host 0.0.0.0 --port $PORT` |
 | Database | Render Persistent Disk | Mounted at `/data/preceptor_nexus.db` |
 | AI Proxy | Google Gemini Flash | `GEMINI_API_KEY` env var on Render |
+
+---
+
+## 9. Environment Configuration
+
+A `.env` file at the project root configures both tiers at development time.
+
+```
+GEMINI_API_KEY=your_google_ai_studio_api_key_here
+VITE_API_URL=http://localhost:8000
+HOST=0.0.0.0
+PORT=8000
+ENVIRONMENT=development
+```
+
+- `.env` is Git-ignored and must never be committed.
+- `.env.example` is committed and documents all required keys with placeholder values.
+- `VITE_API_URL` is injected into the frontend bundle at build time by Vite's `VITE_*` prefix convention.
+- The centralized API client at `frontend/src/lib/api.ts` reads `import.meta.env.VITE_API_URL` and defaults to `http://localhost:8000`.
+
+---
+
+## 10. Frontend-to-Backend Contract Wiring
+
+The API client (`frontend/src/lib/api.ts`) exposes four typed async functions:
+
+| Function | Method | Endpoint | Purpose |
+|---|---|---|---|
+| `fetchHealth` | GET | `/api/health` | Navbar health badge polling |
+| `fetchQuestions` | GET | `/api/questions` | Quiz questions with answers stripped |
+| `postEvaluate` | POST | `/api/evaluate` | Anti-cheat server-side scoring |
+| `postBuddyExplain` | POST | `/api/buddy/explain` | African analogy generation |
+
+Every function throws on non-OK responses so callers can catch and degrade gracefully.
+
+**Health badge polling cadence:**
+- Checked immediately on mount.
+- Re-checked every 30 seconds.
+- Re-checked on `visibilitychange` (tab becomes active).
+
+**Assessment mode selection:**
+- When the backend is reachable: fetches fresh questions from `/api/questions` (answers stripped, anti-cheat mode). Submits to `/api/evaluate` at the end of the quiz.
+- When the backend is unreachable: falls back to bundled `QUESTIONS` in `questions.ts` with client-side Leitner scoring.
+
+---
+
+## 11. Playwright E2E Test Coverage
+
+Automated browser tests live in `tests/test_e2e_browser.py` using `pytest-playwright`.
+
+**Browser configuration:** `channel="chrome"` uses the system-installed Google Chrome. No `playwright install chromium` or network download is required.
+
+**Test matrix:**
+
+| Test | Viewports | Description |
+|---|---|---|
+| `test_dashboard_responsive` | Desktop / Tablet / Mobile | No horizontal overflow at each breakpoint |
+| `test_route_renders` | Desktop | All five routes load without crashing |
+| `test_health_badge_renders` | Desktop | Navbar badge shows connected or offline label |
+| `test_assessment_start_and_answer` | Desktop | Quiz starts, question answered, progress advances |
+| `test_flashcard_flip` | Desktop | Card flip reveals back face |
+| `test_planner_slider` | Desktop | Hours slider responds to keyboard input |
+| `test_theme_toggle` | Desktop | Toggle switches between Cyber-Dark and Frosted-Light |
+| `test_buddy_suggestion_pill` | Desktop | Suggestion pill sends message and receives reply |
+| `test_storage_status_popover` | Desktop | Storage status popover opens and closes |
+
+**Prerequisites:**
+```bash
+# Backend (optional - app works offline)
+uvicorn backend.main:app --reload --port 8000
+
+# Frontend
+cd frontend && npm run dev
+```
+
+**Run:**
+```bash
+pytest tests/test_e2e_browser.py -v
+```

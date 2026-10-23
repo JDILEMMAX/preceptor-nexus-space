@@ -7,6 +7,7 @@ import { useStore } from "@/lib/store";
 import { crossedPassingThreshold, domainStats, readinessScore } from "@/lib/logic";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { fetchHealth } from "@/lib/api";
 
 const NAV = [
   { to: "/", label: "Dashboard", icon: Gauge },
@@ -16,11 +17,75 @@ const NAV = [
   { to: "/buddy", label: "AI Buddy", icon: MessageCircle },
 ] as const;
 
-function StorageStatus() {
+type CloudStatus = "checking" | "connected" | "offline";
+
+function useBackendHealth(): CloudStatus {
+  const [cloudStatus, setCloudStatus] = useState<CloudStatus>("checking");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function check() {
+      try {
+        const data = await fetchHealth();
+        if (!cancelled) {
+          setCloudStatus(data.status === "ok" ? "connected" : "offline");
+        }
+      } catch {
+        if (!cancelled) setCloudStatus("offline");
+      }
+    }
+
+    check();
+    const interval = setInterval(check, 30_000);
+
+    const onVisible = () => { if (document.visibilityState === "visible") check(); };
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, []);
+
+  return cloudStatus;
+}
+
+function HealthBadge({ cloudStatus }: { cloudStatus: CloudStatus }) {
+  if (cloudStatus === "checking") return null;
+  const connected = cloudStatus === "connected";
+  return (
+    <span
+      className={cn(
+        "hidden items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs sm:flex",
+        connected
+          ? "border-success/40 bg-success/10 text-success"
+          : "border-warning/40 bg-warning/10 text-warning",
+      )}
+      aria-label={connected ? "Cloud engine connected" : "Local engine active"}
+    >
+      <span
+        aria-hidden
+        className={cn(
+          "h-1.5 w-1.5 shrink-0 rounded-full",
+          connected ? "bg-success" : "bg-warning animate-pulse motion-reduce:animate-none",
+        )}
+      />
+      {connected ? "Cloud Engine Connected (FastAPI + SQLite)" : "Local Engine Active (IndexedDB)"}
+    </span>
+  );
+}
+
+function StorageStatus({ cloudStatus }: { cloudStatus: CloudStatus }) {
   const { storageStatus } = useStore();
   const durable = storageStatus === "active";
   const memoryOnly = storageStatus === "memory-only";
-  const localLabel = memoryOnly ? "Local Engine: Memory-only" : storageStatus === "loading" ? "Local Engine: Loading progress" : storageStatus === "saving" ? "Local Engine: Saving progress" : "Local Engine Active (IndexedDB)";
+  const localLabel =
+    memoryOnly ? "Local Engine: Memory-only"
+    : storageStatus === "loading" ? "Local Engine: Loading progress"
+    : storageStatus === "saving" ? "Local Engine: Saving progress"
+    : "Local Engine Active (IndexedDB)";
   const [open, setOpen] = useState(false);
   const [online, setOnline] = useState(true);
   useEffect(() => {
@@ -30,6 +95,13 @@ function StorageStatus() {
     window.addEventListener("offline", on);
     return () => { window.removeEventListener("online", on); window.removeEventListener("offline", on); };
   }, []);
+
+  const cloudConnected = cloudStatus === "connected";
+  const cloudLabel =
+    cloudStatus === "checking" ? "Cloud Engine: Checking..."
+    : cloudConnected ? "Cloud Engine Connected (FastAPI + SQLite)"
+    : "Local Engine Active (IndexedDB)";
+
   return (
     <div className="storage-status fixed z-50">
       <Popover open={open} onOpenChange={setOpen}>
@@ -58,15 +130,32 @@ function StorageStatus() {
             <span className="min-w-0 flex-1 text-xs font-medium leading-5">{localLabel}</span>
             <span aria-hidden className={cn("h-1.5 w-1.5 shrink-0 rounded-full", durable ? "bg-success" : memoryOnly ? "bg-warning" : "bg-muted-foreground")} />
           </div>
-          <div title={online ? "Online — no cloud sync configured" : "Offline — local engine remains active"} className="flex items-center gap-3 border-t border-border pt-3">
-            <Cloud aria-hidden className="h-4 w-4 shrink-0 text-warning" />
-            <span className="min-w-0 flex-1 text-xs leading-5 text-muted-foreground">Cloud Sync Telemetry: Standalone Mode</span>
-            <span aria-hidden className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-warning motion-reduce:animate-none" />
+          <div
+            title={online ? cloudLabel : "Offline - local engine remains active"}
+            className="flex items-center gap-3 border-t border-border pt-3"
+          >
+            <Cloud aria-hidden className={cn("h-4 w-4 shrink-0", cloudConnected ? "text-success" : "text-warning")} />
+            <span className="min-w-0 flex-1 text-xs leading-5 text-muted-foreground">{cloudLabel}</span>
+            <span
+              aria-hidden
+              className={cn(
+                "h-1.5 w-1.5 shrink-0 rounded-full",
+                cloudConnected ? "bg-success" : "bg-warning animate-pulse motion-reduce:animate-none",
+              )}
+            />
           </div>
-          {memoryOnly && <p className="mt-3 border-t border-border pt-3 text-xs leading-5 text-warning">Progress isn’t being saved. Keep this page open; reloading may lose changes.</p>}
+          {memoryOnly && (
+            <p className="mt-3 border-t border-border pt-3 text-xs leading-5 text-warning">
+              Progress isn't being saved. Keep this page open; reloading may lose changes.
+            </p>
+          )}
         </PopoverContent>
       </Popover>
-      {memoryOnly && !open && <p role="alert" className="glass-strong absolute bottom-16 right-0 w-64 rounded-xl p-3 text-xs leading-5 text-warning">Progress isn’t being saved. Keep this page open; reloading may lose changes.</p>}
+      {memoryOnly && !open && (
+        <p role="alert" className="glass-strong absolute bottom-16 right-0 w-64 rounded-xl p-3 text-xs leading-5 text-warning">
+          Progress isn't being saved. Keep this page open; reloading may lose changes.
+        </p>
+      )}
     </div>
   );
 }
@@ -127,6 +216,8 @@ function BrandMark() {
 export function AppShell({ children }: { children: ReactNode }) {
   const { ready } = useStore();
   const path = useRouterState({ select: (s) => s.location.pathname });
+  const cloudStatus = useBackendHealth();
+
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-hidden">
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
@@ -152,15 +243,16 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
           </nav>
           <div className="ml-auto flex items-center gap-2 md:ml-0">
+            <HealthBadge cloudStatus={cloudStatus} />
             <ThemeToggle />
           </div>
         </div>
       </header>
 
-      <StorageStatus />
+      <StorageStatus cloudStatus={cloudStatus} />
 
       <main aria-busy={!ready} className="mx-auto w-full max-w-7xl flex-1 px-3 pb-28 pt-6 md:px-6 md:pb-6">
-        {ready ? children : <p role="status" className="py-12 text-center text-sm text-muted-foreground">Loading your saved progress…</p>}
+        {ready ? children : <p role="status" className="py-12 text-center text-sm text-muted-foreground">Loading your saved progress...</p>}
       </main>
 
       <nav className="glass-strong fixed inset-x-3 bottom-3 z-40 flex justify-around rounded-2xl p-1.5 md:hidden">

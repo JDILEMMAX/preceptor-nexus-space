@@ -147,7 +147,22 @@ CREATE INDEX IF NOT EXISTS idx_analogies_azure_service ON analogies (azure_servi
 
 ---
 
-## 5. WAL Mode Rationale
+## 5. Environment Configuration Reference
+
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `GEMINI_API_KEY` | Optional | (empty) | Google AI Studio key for Gemini Flash. Without it the AI proxy falls back to seed analogies. |
+| `VITE_API_URL` | Optional | `http://localhost:8000` | Base URL the frontend API client uses for all backend calls. |
+| `HOST` | Optional | `0.0.0.0` | Network interface the uvicorn server binds to. |
+| `PORT` | Optional | `8000` | Port the uvicorn server listens on. |
+| `ENVIRONMENT` | Optional | `development` | Runtime environment label (development or production). |
+| `DB_PATH` | Optional | `data/preceptor_nexus.db` | Override database path - used by the test suite to inject a temp database. |
+
+Copy `.env.example` to `.env` and fill in your `GEMINI_API_KEY` before running locally.
+
+---
+
+## 6. WAL Mode Rationale
 
 SQLite Write-Ahead Logging (WAL) is enabled via:
 

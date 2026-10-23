@@ -1,7 +1,10 @@
-"""Shared pytest fixtures for Preceptor Nexus Space backend tests.
+"""Shared pytest fixtures for Preceptor Nexus Space backend and E2E tests.
 
-Sets up an isolated in-memory SQLite database for each test session
-so tests are hermetically sealed from the production data file.
+Backend fixtures set up an isolated in-memory SQLite database for each test
+session so tests are hermetically sealed from the production data file.
+
+Playwright fixtures configure the browser to use the system-installed Chrome
+so no network download is required.
 """
 
 from __future__ import annotations
@@ -77,3 +80,19 @@ def test_db_path() -> Generator[Path, None, None]:
     finally:
         db_file.unlink(missing_ok=True)
         os.environ.pop("DB_PATH", None)
+
+
+# ---------------------------------------------------------------------------
+# Playwright browser configuration
+# Use system-installed Chrome - no playwright install chromium required
+# ---------------------------------------------------------------------------
+
+@pytest.fixture(scope="session")
+def browser_type_launch_args(browser_type_launch_args: dict) -> dict:
+    """Override Playwright launch args to use system Chrome instead of downloading Chromium."""
+    return {
+        **browser_type_launch_args,
+        "channel": "chrome",
+        "headless": True,
+        "args": ["--no-sandbox", "--disable-dev-shm-usage"],
+    }

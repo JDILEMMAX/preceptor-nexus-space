@@ -69,12 +69,36 @@ async def explain_topic(query: str) -> BuddyResponse:
 # Gemini implementation
 # ---------------------------------------------------------------------------
 
+_GEMINI_MODELS = [
+    "gemini-2.5-flash-lite",   # accessible to all API key tiers
+    "gemini-3-flash-preview",  # next generation preview
+    "gemini-flash-lite-latest",
+    "gemini-2.5-flash",
+    "gemini-1.5-flash-latest",
+]
+
+
 async def _call_gemini(api_key: str, query: str) -> BuddyResponse:
-    """Call Gemini Flash REST API and parse the structured JSON response."""
-    url = (
-        "https://generativelanguage.googleapis.com/v1beta/models/"
-        "gemini-1.5-flash:generateContent"
-    )
+    """Call Gemini Flash REST API and parse the structured JSON response.
+
+    Tries candidate model names in order until one succeeds.
+    """
+    last_exc: Exception | None = None
+    for model in _GEMINI_MODELS:
+        url = (
+            f"https://generativelanguage.googleapis.com/v1beta/models/"
+            f"{model}:generateContent"
+        )
+        try:
+            return await _call_gemini_model(api_key, query, url)
+        except Exception as exc:  # noqa: BLE001
+            last_exc = exc
+            print(f"[ai_proxy] Model {model} failed ({type(exc).__name__}). Trying next.")
+    raise last_exc or RuntimeError("All Gemini model candidates failed.")
+
+
+async def _call_gemini_model(api_key: str, query: str, url: str) -> BuddyResponse:
+    """Single attempt against one model URL."""
     payload = {
         "system_instruction": {"parts": [{"text": _SYSTEM_PROMPT}]},
         "contents": [

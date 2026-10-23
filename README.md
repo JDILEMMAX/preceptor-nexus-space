@@ -217,12 +217,21 @@ The database is auto-healed on server startup. This step is optional for develop
 
 ### 4. Configure environment variables
 
+Copy the example file and fill in your API key:
+
 ```bash
-# Optional: enables Gemini AI responses in the Study Buddy
-# Without this key the app falls back to curated seed analogies
-set GEMINI_API_KEY=your_key_here   # Windows
-# export GEMINI_API_KEY=your_key_here  # macOS/Linux
+cp .env.example .env
+# Then open .env and set GEMINI_API_KEY=your_actual_key
 ```
+
+| Variable | Required | Description |
+|---|---|---|
+| `GEMINI_API_KEY` | Optional | Google AI Studio key. Without it the Study Buddy falls back to curated seed analogies. |
+| `VITE_API_URL` | Optional | Override the backend URL (default: `http://localhost:8000`). |
+| `HOST` | Optional | Bind address for uvicorn (default: `0.0.0.0`). |
+| `PORT` | Optional | Port for uvicorn (default: `8000`). |
+
+The `.env` file is Git-ignored. Never commit it.
 
 ### 5. Start the backend
 
@@ -240,13 +249,30 @@ npm install
 npm run dev
 ```
 
-Frontend available at: http://localhost:3000
+Frontend available at: http://localhost:5173
 
 ### 7. Run backend tests
 
 ```bash
 pytest tests/ -v
 ```
+
+### 8. Run Playwright E2E tests
+
+Playwright uses system-installed Chrome - no browser download needed.
+
+```bash
+# Install test dependencies (one-time)
+pip install playwright pytest-playwright
+
+# With both services running (steps 5 and 6 above):
+pytest tests/test_e2e_browser.py -v
+```
+
+Tests cover:
+- Viewport responsiveness at Desktop (1920x1080), Tablet (768x1024) and Mobile (375x667)
+- All five routes: Dashboard, Assessment, Flashcards, Planner and AI Buddy
+- Health badge accuracy, quiz interaction, card flip, theme toggle and storage popover
 
 ---
 
